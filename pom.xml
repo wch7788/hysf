@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.example</groupId>
+	<artifactId>spring-boot-mybatis</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+	<name>spring-boot-mybatis</name>
+	<description>Demo project for Spring Boot</description>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.0.5.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+	</properties>
+
+	<dependencies>
+	   <dependency>
+	      <groupId>org.apache.poi</groupId>
+	      <artifactId>poi</artifactId>
+	      <version>3.14</version>
+        </dependency> 
+    <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.14</version>
+        </dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+		
+		
+		   <dependency>             
+		   <groupId>com.auth0</groupId>            
+		    <artifactId>java-jwt</artifactId>             
+		    <version>3.3.0</version>        
+		   </dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		  <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+		
+		<dependency>
+		<groupId>org.mybatis.spring.boot</groupId>
+		<artifactId>mybatis-spring-boot-starter</artifactId>
+		<version>1.1.1</version>
+		</dependency>
+		
+		 <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        
+        <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-devtools</artifactId>
+        <optional>true</optional>
+        </dependency>
+      
+        <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>jstl</artifactId>
+        </dependency>
+    <dependency>
+     <groupId>javax.servlet</groupId>
+     <artifactId>javax.servlet-api</artifactId>
+     
+     <!-- provided表明该包只在编译和测试的时候用 -->
+     <scope>provided</scope>
+    </dependency>
+  <dependency>
+     <groupId>javax.servlet.jsp</groupId>
+     <artifactId>jsp-api</artifactId>
+     <version>2.2</version>
+     <scope>provided</scope>
+   </dependency>
+
+        
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- 添加jsp支持 --> 
+       <dependency>     
+        <groupId>org.apache.tomcat.embed</groupId>    
+        <artifactId>tomcat-embed-jasper</artifactId>    
+        <!--<scope>provided</scope>-->    
+        <!-- 如果不注释，你会发现main线程运行报404错误，必须使用 spring-boot:run这个命令运行才行。所以我们注释掉--> 
+      </dependency>
+        
+     </dependencies>
+
+	<build>
+		<plugins>
+		 <plugin>                 
+		<groupId>org.apache.maven.plugins</groupId>                 
+		<artifactId>maven-war-plugin</artifactId>                                
+		<configuration>       
+		<failOnMissingWebXml>false</failOnMissingWebXml>                 
+		</configuration>             
+		</plugin> 
+			<!-- <plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin> -->
+		</plugins>
+		<finalName>wch</finalName>
+	</build>
+</project>
