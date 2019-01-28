@@ -7,19 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-lalal 
+<input type="text" value="ww222">
 </body>
-<script type="text/javascript">
-    $(function() {
-	if("${sessionScope.msg}"==""){
-		 alert("hahah");
-	}else{
-		alert("huhu")
-		
-	}
-	 
-	 
- });
-
-</script>
 </html>

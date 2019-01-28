@@ -21,5 +21,6 @@ public interface StudentMapper {
 	//根据年龄或者姓名查找学生
 	public List<Student> FindStudentByAgeOrName(Student student);
 	public String getmessage();
+	public String findpasswordByName(String username);
     
 }

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -88,13 +89,16 @@ public class StudentController {
 		return mv;
 	}
 	
-	@RequestMapping(value="ceshi")
+	@RequestMapping(value="login")
 	public String ceshi(){
-		System.out.println("ss");
 		return "test";
 	}
 	
-	
+	@RequestMapping(value="tiaozhuan")
+	public String tiaozhuan(){
+		
+		return "homepage";
+	}
 	
 	@RequestMapping(value="addAddress")
 	public void addAddress(Address address){
@@ -159,7 +163,24 @@ public class StudentController {
 		return map;
 	}
 	
-	
+	@PostMapping(value="checkLogin")
+	@ResponseBody
+	public Map<String, Object>  login(String username,String password){
+		System.out.println(username+"---"+password);
+		String passWord=studentmapper.findpasswordByName(username);
+		Map<String, Object> map=new HashMap<>();
+        if(passWord==null){
+         map.put("status", "false");
+		}
+		if(passWord!=null&&passWord.equals(password)){
+		 map.put("status", "true");
+		}
+		if(passWord!=null&&!passWord.equals(password)){
+			 map.put("status", "false");
+		}
+		return map;
+
+	}
 	
 	
 }

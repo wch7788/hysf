@@ -163,4 +163,11 @@ FROM
 SELECT CESHI FROM `ceshi` LIMIT 1;
 </select>
 
+<select id="findpasswordByName" resultType="java.lang.String">
+SELECT 
+  `password` 
+FROM
+  `test`.`user` 
+  WHERE username=#{username}
+</select>
 </mapper>
