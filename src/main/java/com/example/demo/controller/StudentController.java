@@ -90,7 +90,7 @@ public class StudentController {
 	
 	@RequestMapping(value="ceshi")
 	public String ceshi(){
-		System.out.println("wwwwww");
+		System.out.println("ss");
 		return "test";
 	}
 	
