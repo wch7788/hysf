@@ -105,8 +105,8 @@ color:blue;
 	                window.location.href="tiaozhuan"
 	                }else{
 	                    alert("用户名或密码错误");
-	                    $("#password").val("");  //将密码input清空
-	                    $("#password").focus();  //将光标定位到密码input
+	                    $("input[name='password']").val("");  //将密码input清空
+	                    $("input[name='password']").focus();  //将光标定位到密码input
 	                }
 	            },
 	            error:function (err) {
