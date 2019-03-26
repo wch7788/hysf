@@ -8,29 +8,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
 <base href=" <%=basePath%>"> 
-<title>毕业设计网页测试</title>
+<title>毕业设计网页</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <link rel="stylesheet" media="screen" href="css/style.css">
 <link rel="stylesheet" type="text/css" href="css/reset.css"/>
 </head>
-<!-- <style>
-#btn{
-border-color: red;
-background: white;
-color:blue;
-}
-</style> -->
+
 <body>
-<!-- <img alt="" src="./pictue/789.gif">
-<div style="height: 100%;width: 100%;background-color: blue;">
-<h1 align="center">毕业设计网站测试</h1>
-<div align="center"><input id="content" type="text">
-<button id="btn" style="height: 300px;width: 500px">测试</button></div>
-</div> -->
-
-
-
 <div id="particles-js">
 		<div class="login">
 	    <img alt="" src="picture/logo.png">
@@ -58,10 +43,11 @@ color:blue;
 		<div class="sk-rotating-plane"></div>
 </div>
 
-<!-- scripts -->
+
 <script src="js/particles.min.js"></script>
 <script src="js/app.js"></script>
 <script src="js/jquery-3.3.1.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript">
 	function hasClass(elem, cls) {
 	  cls = cls || '';
@@ -84,27 +70,29 @@ color:blue;
 	    ele.className = newClass.replace(/^\s+|\s+$/g, '');
 	  }
 	}
+
 		
 		$(".login-button").click(function(){
-			var username=$("input[name='username']").val(); //获取input里的值
-	        var password=$("input[name='password']").val();
-			
-			console.log(username+"--"+password);
+
+			var basePath = "<%=basePath%>";
+			console.log(basePath)
+		    var user={username:$("input[name='username']").val(),
+				      password:$("input[name='password']").val()}
+				      console.log(JSON.stringify(user));
 	        $.ajax({
 	            type:"POST",
-	            url:"checkLogin",
-	            data:{
-	                 username:username,
-	                 password:password
-	             },
+	            url:"v1/auth/login",
+	            data:JSON.stringify(user),
+				contentType: 'application/json; charset=UTF-8',
+				dataType:'json',
 	            success:function (result) {
 	            	console.log(result);
-	                if("true"==result.status){
-	                
-	                
-	                window.location.href="tiaozhuan"
+	                if("OK"==result.status){
+	                window.location.href="wch.jsp"
 	                }else{
-	                    alert("用户名或密码错误");
+						swal(result.message, {
+							button: false,
+						});
 	                    $("input[name='password']").val("");  //将密码input清空
 	                    $("input[name='password']").focus();  //将光标定位到密码input
 	                }

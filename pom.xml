@@ -107,7 +107,27 @@
         <!--<scope>provided</scope>-->    
         <!-- 如果不注释，你会发现main线程运行报404错误，必须使用 spring-boot:run这个命令运行才行。所以我们注释掉--> 
       </dependency>
-        
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.5.0</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.5.0</version>
+		</dependency>
+
+		<!--spring-security依赖包-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.0</version>
+		</dependency>
      </dependencies>
 
 	<build>
