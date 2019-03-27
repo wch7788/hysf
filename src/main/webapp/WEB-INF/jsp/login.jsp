@@ -47,7 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="js/particles.min.js"></script>
 <script src="js/app.js"></script>
 <script src="js/jquery-3.3.1.min.js"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="js/sweetAlert2.all.min.js"></script>
 <script type="text/javascript">
 	function hasClass(elem, cls) {
 	  cls = cls || '';
@@ -90,15 +90,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                if("OK"==result.status){
 	                window.location.href="wch.jsp"
 	                }else{
-						swal(result.message, {
-							button: false,
-						});
+						swal.fire({title:result.message,type: 'warning',showConfirmButton: false});
 	                    $("input[name='password']").val("");  //将密码input清空
 	                    $("input[name='password']").focus();  //将光标定位到密码input
 	                }
 	            },
 	            error:function (err) {
-	                alert("系统错误");
+					swal.fire("系统错误", "", "error")
 	            }
 	        });
 

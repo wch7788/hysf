@@ -10,7 +10,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,7 +28,6 @@ public class LoginController {
     @ApiOperation(value = "用户登录")
     @PostMapping("/v1/auth/login")
     public Map<String, ?> checkLogin(@RequestBody AccountCredentials account) {
-        System.out.println(account.getPassword()+"--"+account.getUsername());
         User user=userService.getUser(account);
         if (user == null) {
             return JSONResult.fillResult(Utils.ResultStatus.Fail, "", "用户不存在");
