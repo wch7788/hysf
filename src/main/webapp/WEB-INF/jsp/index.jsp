@@ -12,7 +12,6 @@
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
-
     <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
     <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
     <!--[if lt IE 9]>
@@ -45,24 +44,23 @@
     <div class="pageSidebar">
         <ul class="nav nav-stacked nav-pills">
             <li role="presentation">
-                <a href="/index" target="mainFrame">课程管理</a>
+                <a href="/forWord/paper" target="mainFrame">课程管理</a>
             </li>
             <li role="presentation">
-                <a href="index.jsp" target="mainFrame">学生管理</a>
+                <a href="/forWord/paper" target="mainFrame">学生管理</a>
             </li>
             <li role="presentation">
-                <a href="index.jsp" target="mainFrame">教师管理</a>
+                <a href="/" target="mainFrame">教师管理</a>
             </li>
         </ul>
-    </div>
 </div>
-
-<div>
-    <iframe src="xxx" id="mainFrame" name="mainFrame"
+<div class="splitter"></div>
+<div class="pageContent">
+    <iframe src="#" id="mainFrame" name="mainFrame"
              width="100%"  height="100%" frameBorder="0">
     </iframe>
 </div>
-
+</div>
 <div class="footer">
     <p class="text-center">
         2019 &copy; hytc.

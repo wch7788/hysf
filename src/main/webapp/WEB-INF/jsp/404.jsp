@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>404</title>
 </head>
 <body>
-<input type="text" value="wwwww">
+ERROR!!!
 </body>
 </html>
