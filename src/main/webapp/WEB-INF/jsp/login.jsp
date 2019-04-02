@@ -88,7 +88,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            success:function (result) {
 	            	console.log(result);
 	                if("OK"==result.status){
-	                window.location.href="/forWord/index"
+	                window.location.href="/index"
 	                }else{
 						swal.fire({title:result.message,type: 'warning',showConfirmButton: false});
 	                    $("input[name='password']").val("");  //将密码input清空

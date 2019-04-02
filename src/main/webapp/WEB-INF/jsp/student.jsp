@@ -1,37 +1,106 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+         pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html lang="zh-CN">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Bootstrap 101 Template</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
-<form action="">
-<table border="1" align="center">
-<tr>
-<th>序号</th>
-<th>姓名</th>
-<th>年龄</th>
-<th>班级</th>
-<th>地址</th>
-<th>操作</th>
-</tr>
-<c:forEach var="stu" items="${students}">
-<tr>
-<td>${stu.id}</td>
-<td>${stu.name}</td>
-<td>${stu.age}</td>
-<td>${stu.classroom.name}</td>
-<td>${stu.address.address}</td>
-<td><a href="delete?id=${stu.id}">删除</a>
-<a href="update?id=${stu.id}">修改</a>
-</td>
-</tr>
+<h1>Student</h1>
+<div>
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>姓名</th>
+            <th>班级</th>
+            <th>学号</th>
+            <th>操作</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>XXX</td>
+            <td>XXX</td>
+            <td>XXX</td>
+            <td><button class="btn btn-info">Info</button></td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>XXX</td>
+            <td>XXX</td>
+            <td>XXX</td>
+            <td><button id="ABC" class="btn btn-info">Info</button></td>
+        </tr>
+    </table>
 
-</c:forEach>
-</table>
-</form>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li>
+                <a href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li>
+                <a href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+    $('a').click(function () {
+
+
+    })
+  $(".btn-info").click(function () {
+
+      $.ajax({
+          type:"GET",
+          url:"/test",
+          success:function (result) {
+              var str="";
+              str+="<tr>"
+                  + "<td>"+result+"</td>"
+                  + "<td>"+result+"</td>"
+                  + "<td>"+result+"</td>"
+                  + "<td>"+result+"</td>"
+                  + "<td>"+result+"</td>"
+                  + "</tr>"
+              $(".table").append(str)
+          },
+          error:function (err) {
+              alert("系统错误")
+          }
+      });
+  })
+
+
+</script>
+
 </body>
 </html>

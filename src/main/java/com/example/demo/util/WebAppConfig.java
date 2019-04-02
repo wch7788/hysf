@@ -26,7 +26,10 @@ public class WebAppConfig implements WebMvcConfigurer{
 				"/favicon.ico",
 				"/**/*.html",
 				"/**/*.css",
-				"/**/*.js");
+				"/**/*.js",
+				"/**/*.jpg",
+				"/**/*.png"
+		      );
 
 		// 拦截配置
 		addInterceptor.addPathPatterns("/**");
