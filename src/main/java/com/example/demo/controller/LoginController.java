@@ -42,5 +42,11 @@ public class LoginController {
     }
 
 
+    @ApiOperation(value = "获取数据")
+    @PostMapping("/v1/auth/list")
+    public Map<String, ?> list(int pageNumber,int pageSize) {
+        System.out.println(pageNumber+"---"+pageSize);
+        return JSONResult.successResult(22);
+    }
 
 }

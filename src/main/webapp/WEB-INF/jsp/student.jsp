@@ -31,14 +31,14 @@
             <th>操作</th>
         </tr>
         <tr>
-            <td>1</td>
+            <td class="id">1</td>
             <td>XXX</td>
             <td>XXX</td>
             <td>XXX</td>
             <td><button class="btn btn-info">Info</button></td>
         </tr>
         <tr>
-            <td>2</td>
+            <td class="id">2</td>
             <td>XXX</td>
             <td>XXX</td>
             <td>XXX</td>
@@ -46,14 +46,14 @@
         </tr>
     </table>
 
-    <nav aria-label="Page navigation">
+    <%--<nav aria-label="Page navigation">
         <ul class="pagination">
             <li>
                 <a href="#" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
-            <li><a href="#">1</a></li>
+            <li><a href="">1</a></li>
             <li><a href="#">2</a></li>
             <li><a href="#">3</a></li>
             <li><a href="#">4</a></li>
@@ -64,40 +64,58 @@
                 </a>
             </li>
         </ul>
-    </nav>
+    </nav>--%>
 </div>
+<div style="text-align: center;margin-top: 40%"><ul class="pagination"></ul></div>
 
-<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
-<!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+<script src="/js/jquery-3.3.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
-
+<script src="/js/sweetAlert2.all.min.js"></script>
+<script src="/js/bootstrap-paginator.js"></script>
 <script type="text/javascript">
-    $('a').click(function () {
+    $(function () {
+        $.ajax({
+            type:"POST",
+            url:"/v1/auth/list",
+            data:{'pageNumber':1,'pageSize':10},
+            dataType:'json',
+            success:function (result) {
+                 var totalPage=result.result;
+                 console.log(totalPage)
+                var options={
+                    bootstrapMajorVersion: 3,
+                    currentPage: 1,
+                    totalPages: totalPage,
+                    itemTexts: function (type, page, current) {
+                        switch (type) {
+                            case "first":
+                                return "第一页";
+                            case "prev":
+                                return "上一页";
+                            case "next":
+                                return "下一页";
+                            case "last":
+                                return "最后一页";
+                            case "page":
+                                return page;
+                        }
+                    }
+
+                }
+                $(".pagination").bootstrapPaginator(options)
+            },
+            error:function (err) {
+                alert(err)
+            }
+        });
+
 
 
     })
-  $(".btn-info").click(function () {
 
-      $.ajax({
-          type:"GET",
-          url:"/test",
-          success:function (result) {
-              var str="";
-              str+="<tr>"
-                  + "<td>"+result+"</td>"
-                  + "<td>"+result+"</td>"
-                  + "<td>"+result+"</td>"
-                  + "<td>"+result+"</td>"
-                  + "<td>"+result+"</td>"
-                  + "</tr>"
-              $(".table").append(str)
-          },
-          error:function (err) {
-              alert("系统错误")
-          }
-      });
-  })
+
+
+
 
 
 </script>
