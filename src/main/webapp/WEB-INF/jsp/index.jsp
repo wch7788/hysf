@@ -44,13 +44,19 @@
     <div class="pageSidebar">
         <ul class="nav nav-stacked nav-pills">
             <li role="presentation">
-                <a href="/forWord/student" target="mainFrame">学生管理</a>
+                <a href="/forWord/student" target="mainFrame">
+                    <span class="glyphicon glyphicon-user" style="margin-right: 20px"></span>学生管理
+                </a>
             </li>
             <li role="presentation">
-                <a href="/forWord/student" target="mainFrame">学生管理</a>
+                <a href="/forWord/student" target="mainFrame">
+                    <span class="glyphicon glyphicon-duplicate" style="margin-right: 20px"></span>试题管理
+                </a>
             </li>
             <li role="presentation">
-                <a href="/forWord/paper" target="mainFrame">试题管理</a>
+                <a href="/forWord/paper" target="mainFrame">
+                    <span class="glyphicon glyphicon-file" style="margin-right: 20px"></span>试题管理
+                </a>
             </li>
         </ul>
 </div>

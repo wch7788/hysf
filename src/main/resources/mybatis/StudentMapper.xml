@@ -1,173 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.demo.mapper.StudentMapper">
+ <resultMap id="studentRM" type="com.example.demo.bean.Student">
+     <id column="id" property="id" jdbcType="INTEGER"></id>
+     <result column="name" property="name" jdbcType="VARCHAR"></result>
+     <result column="number" property="number" jdbcType="VARCHAR"></result>
+     <result column="class_id" property="classId" jdbcType="INTEGER"></result>
+ </resultMap>
 
-<resultMap type="com.example.demo.bean.Student" id="StudentMap">
-<result column="S_ID" property="id" jdbcType="INTEGER"/>
-<result column="S_NAME" property="name" jdbcType="VARCHAR"/>
-<result column="AGE" property="age" jdbcType="INTEGER"/>
-</resultMap> 
-
-<resultMap type="com.example.demo.bean.Student" id="ResultST">
-<result column="S_ID" property="id" jdbcType="INTEGER"/>
-<result column="S_NAME" property="name" jdbcType="VARCHAR"/>
-<result column="AGE" property="age" jdbcType="INTEGER"/>
-<association property="address" column="A_ID" select="com.example.demo.mapper.AddressMapper.Findbyid"/>
-</resultMap> 
-
-<resultMap type="com.example.demo.bean.Student" id="ResultSTS">
-<result column="S_ID" property="id" jdbcType="INTEGER"/>
-<result column="S_NAME" property="name" jdbcType="VARCHAR"/>
-<result column="AGE" property="age" jdbcType="INTEGER"/>
-<association property="address" column="A_ID" select="com.example.demo.mapper.AddressMapper.Findbyid"/>
-<association property="classroom" column="C_ID" select="com.example.demo.mapper.ClassMapper.Findbyid"/>
-</resultMap> 
-
-
- <insert id="add" parameterType="com.example.demo.bean.Student">
-INSERT INTO `test`.`t_student` (
-  `s_id`,
-  `s_name`,
- 
-  
-  `age`
-) 
-VALUES
-  (
-    #{id},
-    #{name},
-    
-    #{age}
-  ) ;
-</insert>
-
-<delete id="delete" parameterType="int">
-DELETE 
-FROM t_student 
-WHERE `s_id` = #{id} ;
-</delete>
-
-<update id="update" parameterType="com.example.demo.bean.Student">
-UPDATE 
-  t_student 
-SET
-  `s_id` = #{id},
-  `s_name` = #{name},
-   `age` = #{age} 
-WHERE `s_id` = #{id} ;
-</update>
-
-
-<update id="updateAll" parameterType="com.example.demo.bean.Student">
-UPDATE 
-  t_student 
-SET
-  `s_id` = #{id},
-  `s_name` = #{name},
-  `a_id` = #{address.id},
-  `c_id` = #{classroom.id},
-   `age` = #{age} 
-WHERE `s_id` = #{id} ;
-</update>
-
-
- <select id="FindById" parameterType="int" resultMap="StudentMap">
- SELECT 
-   `s_id`,
-  `s_name`,
-  `c_id`,
-  `age`,
-  `a_id`
-   
-FROM
-  `test`.`t_student` 
-  WHERE `s_id` = #{id} ;
-
-</select> 
-
-
- <select id="FindOneStudentById" parameterType="int" resultMap="ResultSTS">
- SELECT 
-   `s_id`,
-  `s_name`,
-  `c_id`,
-  `age`,
-  `a_id`
-   
-FROM
-  `test`.`t_student` 
-  WHERE `s_id` = #{id} ;
-
-</select>
-
- <select id="FindStudent" parameterType="int" resultMap="ResultST">
- SELECT 
-  `s_id`,
-  `s_name`,
-  `age`,
-  `a_id`
-  
-FROM
-  `test`.`t_student` 
-  WHERE `s_id` = #{id} ;
-
-</select> 
-
-
-
- <select id="FindStudentByCid" parameterType="int" resultMap="ResultST" >
- SELECT 
-  `s_id`,
-  `s_name`,
-  `age`,
-  `a_id`
-  
-FROM
-  `test`.`t_student` 
-  WHERE `c_id` = #{id} ;
-
-</select>  
-
- <select id="FindAllStudent" resultMap="ResultSTS" >
- SELECT 
-  `s_id`,
-  `s_name`,
-  `c_id`,
-  `age`,
-  `a_id`
-  
-FROM
-  `test`.`t_student` 
- </select>  
-
-<select id="FindStudentByAgeOrName" parameterType="com.example.demo.bean.Student" resultMap="ResultSTS">
-SELECT 
-  `s_id`,
-  `s_name`,
-  `c_id`,
-  `a_id`,
-  `age` 
-FROM
-  `test`.`t_student` 
- <where>
-  <if test="name!=null">
-   `s_name` like #{name}
-  </if>
-  <if test="age!=null">
-  or age= #{age}
-  </if>
-  </where>
-</select>
-
-<select id="getmessage" resultType="java.lang.String">
-SELECT CESHI FROM `ceshi` LIMIT 1;
-</select>
-
-<select id="findpasswordByName" resultType="java.lang.String">
-SELECT 
-  `password` 
-FROM
-  `test`.`user` 
-  WHERE username=#{username}
-</select>
+    <select id="getStudentList" resultMap="studentRM">
+        SELECT * FROM t_student
+        WHERE 1=1
+        <if test="name!=null and name!=''">
+            AND name LIKE CONCAT(CONCAT('%', #{name}), '%')
+        </if>
+    </select>
 </mapper>

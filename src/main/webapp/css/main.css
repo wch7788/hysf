@@ -9,11 +9,11 @@
     text-align: center;
 }
 .nav>li>a{
-    color:#444;
+    color:#337ab7;
     margin: 0 5px;
 }
 .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{
-    background-color: #222222;
+    background-color: #428bca;
 }
 .dropdown-menu{
     float: none;
