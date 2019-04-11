@@ -9,11 +9,17 @@
     <title>学生信息页面</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/load.css">
     <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
 </head>
 <body>
-<div>
+<div class="spinner">
+    <div class="rect1"></div>
+    <div class="rect2"></div>
+    <div class="rect3"></div>
+    <div class="rect4"></div>
+    <div class="rect5"></div>
 </div>
 <h3><span class="glyphicon glyphicon-tasks">学生信息管理</span></h3>
 <div class="col-lg-6" style="margin-left: -10px">
@@ -44,7 +50,8 @@
 <script src="/js/bootstrap-paginator.js"></script>
 <script type="text/javascript">
 
-    $('body').css('overflow','hidden');
+   // $('body').css('overflow','hidden');
+
     $(function () {
         var size=8;
         var studentInfo={
@@ -57,9 +64,15 @@
             data:JSON.stringify(studentInfo),
             contentType:"application/json",
             dataType:'json',
+            beforeSend:function(){
+                $(".spinner").show();
+            },
             success:function (result) {
-                console.log(result);
+                $(".spinner").hide();
                 var totalPage=result.result.pageInfo.totalPage;
+                if(totalPage==0){
+                    totalPage=1;
+                }
                 showTable(result,1,size);
                 var options={
                     bootstrapMajorVersion: 3,
@@ -90,7 +103,11 @@
                                  data:JSON.stringify(studentPage),
                                  contentType:"application/json",
                                  dataType:'json',
+                                 beforeSend:function(){
+                                     $(".spinner").show();
+                                 },
                                  success:function (result) {
+                                     $(".spinner").hide();
                                      showTable(result,page,size);
                                  }
 
@@ -106,32 +123,9 @@
 
 
 
-    })
+    });
 
-    function showTable(result,pageNumber,pageSize) {
-        var list=result.result.dataList;
-        var tbody="<tr>"+
-            "<th></th>"+
-            "<th>姓名</th>"+
-            "<th>班级</th>"+
-            "<th>学号</th>"+
-            "<th>操作</th>"+
-            "</tr>";
-        $.each(list,function (index,value){
-            var trs="";
-            trs+="<tr>\n" +
-                "<td class=\"id\">"+(parseInt(index)+1+(pageNumber-1)*pageSize)+"</td>" +
-                "<td>"+value.name+"</td>" +
-                "<td>"+value.classId+"</td>" +
-                "<td>"+value.number+"</td>" +
-                "<td><button class=\"btn btn-info\">Info</button></td>\n" +
-                "</tr>";
-            tbody+=trs;
-        });
-        $("tbody").html(tbody);
-    }
-
-     $("#searchBtn").click(function () {
+    $("#searchBtn").click(function () {
          var info=$(".form-control").val();
          var size=8;
          var studentInfo={
@@ -145,9 +139,15 @@
              data:JSON.stringify(studentInfo),
              contentType:"application/json",
              dataType:'json',
+             beforeSend:function(){
+                 $(".spinner").show();
+             },
              success:function (result) {
-                 console.log(result);
+                 $(".spinner").hide();
                  var totalPage=result.result.pageInfo.totalPage;
+                 if(totalPage==0){
+                     totalPage=1;
+                 }
                  showTable(result,1,size);
                  var options={
                      bootstrapMajorVersion: 3,
@@ -179,7 +179,11 @@
                              data:JSON.stringify(studentPage),
                              contentType:"application/json",
                              dataType:'json',
+                             beforeSend:function(){
+                                 $(".spinner").show();
+                             },
                              success:function (result) {
+                                 $(".spinner").hide();
                                  showTable(result,page,size);
                              }
 
@@ -192,9 +196,45 @@
                  alert(err)
              }
          });
-     })
+     });
+
+    $("body").on('click','#studentInfo',function () {
+        window.location.href="/forWord/studentInfo"
+        console.log($(this).val())
+    });
 
 
+
+
+
+
+
+
+
+
+    function showTable(result,pageNumber,pageSize) {
+        var list=result.result.dataList;
+        var tbody="<tr>"+
+            "<th></th>"+
+            "<th>姓名</th>"+
+            "<th>班级</th>"+
+            "<th>学号</th>"+
+            "<th>操作</th>"+
+            "</tr>";
+        $.each(list,function (index,value){
+            var trs="";
+            trs+="<tr>\n" +
+                "<td class=\"id\">"+(parseInt(index)+1+(pageNumber-1)*pageSize)+"</td>" +
+                "<td>"+value.name+"</td>" +
+                "<td>"+value.classId+"</td>" +
+                "<td>"+value.number+"</td>" +
+                "<td><button class=\"btn btn-info\" id=\"studentInfo\" value="+value.id+">Info</button></td>\n" +
+                "</tr>";
+            tbody+=trs;
+        });
+
+        $("tbody").html(tbody);
+    };
 
 </script>
 

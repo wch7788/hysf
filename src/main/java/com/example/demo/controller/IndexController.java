@@ -23,19 +23,19 @@ public class IndexController {
         return "404";
     }
 
-    @ApiOperation(value = "错误页面")
+    @ApiOperation(value = "功能页面")
     @GetMapping(value="/forWord/{function}")
     public String indexPage(@PathVariable("function") String function){
         return function;
     }
 
-    @ApiOperation(value = "错误页面")
+    @ApiOperation(value = "主页页面")
     @GetMapping(value="/index")
     public String index(){
         return "index";
     }
 
-    @ApiOperation(value = "错误页面")
+    @ApiOperation(value = "测试页面")
     @GetMapping(value="/test")
     @ResponseBody
     public String Test(){

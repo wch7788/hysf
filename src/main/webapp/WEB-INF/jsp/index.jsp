@@ -32,7 +32,7 @@
                     <a href="#">当前用户：<span class="badge">${user.username}</span></a>
                 </li>
                 <li>
-                    <a href="../login/logout">
+                    <a href="/">
                         <span class="glyphicon glyphicon-lock"></span>退出登录</a>
                 </li>
             </ul>
@@ -55,7 +55,7 @@
             </li>
             <li role="presentation">
                 <a href="/forWord/paper" target="mainFrame">
-                    <span class="glyphicon glyphicon-file" style="margin-right: 20px"></span>试题管理
+                    <span class="glyphicon glyphicon-file" style="margin-right: 20px"></span>试卷管理
                 </a>
             </li>
         </ul>

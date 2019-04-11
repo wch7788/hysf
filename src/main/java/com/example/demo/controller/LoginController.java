@@ -30,6 +30,7 @@ public class LoginController {
     @PostMapping("/v1/auth/login")
     public Map<String, ?> checkLogin(@RequestBody AccountCredentials account, HttpSession session) {
         User user=userService.getUser(account);
+        session.setMaxInactiveInterval(-1);
         if (user == null) {
             return JSONResult.fillResult(Utils.ResultStatus.Fail, "", "用户不存在");
         }
