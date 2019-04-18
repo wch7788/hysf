@@ -38,7 +38,7 @@ public class LoginController {
             return JSONResult.fillResult(Utils.ResultStatus.Fail, "", "用户或密码错误");
         }else{
             session.setAttribute("user",user);
-            return JSONResult.fillResult(Utils.ResultStatus.OK,user,"成功");
+            return JSONResult.fillResult(Utils.ResultStatus.OK,user,"登录成功");
         }
     }
 

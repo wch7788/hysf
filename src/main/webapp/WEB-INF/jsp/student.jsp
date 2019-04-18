@@ -44,6 +44,38 @@
     <ul class="pagination"></ul>
 </div>
 
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">
+                    <span class="glyphicon glyphicon-user" style="margin-right: 10px"></span>学生个人详细信息</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group form-group-sm">
+                        <label for="recipient-name" class="col-sm-2 control-label">Recipient:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control " id="recipient-name" readonly="readonly">
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label for="recipient-number" class="col-sm-2 control-label">Recipient:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control " id="recipient-number" readonly="readonly">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="save">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="/js/jquery-3.3.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
 <script src="/js/sweetAlert2.all.min.js"></script>
@@ -199,12 +231,13 @@
      });
 
     $("body").on('click','#studentInfo',function () {
-        window.location.href="/forWord/studentInfo"
-        console.log($(this).val())
+        $('#recipient-name').val("WCHWCH")
     });
 
 
-
+    $('#save').click(function () {
+        window.location.reload()
+    })
 
 
 
@@ -228,13 +261,15 @@
                 "<td>"+value.name+"</td>" +
                 "<td>"+value.classId+"</td>" +
                 "<td>"+value.number+"</td>" +
-                "<td><button class=\"btn btn-info\" id=\"studentInfo\" value="+value.id+">Info</button></td>\n" +
+                "<td><button class=\"btn btn-info\" id=\"studentInfo\" data-toggle=\"modal\" data-target=\"#exampleModal\" value="+value.id+">Info</button></td>\n" +
                 "</tr>";
             tbody+=trs;
         });
 
+
         $("tbody").html(tbody);
     };
+
 
 </script>
 

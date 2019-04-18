@@ -48,21 +48,40 @@
                     <span class="glyphicon glyphicon-user" style="margin-right: 20px"></span>学生管理
                 </a>
             </li>
-            <li role="presentation">
+            <li role="presentation" id="paperList">
                 <a href="/forWord/student" target="mainFrame">
                     <span class="glyphicon glyphicon-duplicate" style="margin-right: 20px"></span>试题管理
                 </a>
+                <ul class="nav nav-stacked nav-pills" style="display: none; ">
+                    <li role="presentation">
+                        <a href="/forWord/student" target="mainFrame">
+                            <span class="glyphicon glyphicon-font" style="margin-right: 20px"></span>选择题
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="/forWord/paper" target="mainFrame">
+                            <span class="glyphicon glyphicon-ok" style="margin-right: 20px"></span>判断题
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="/forWord/paper" target="mainFrame">
+                            <span class="glyphicon glyphicon-comment" style="margin-right: 20px"></span>主观题
+                        </a>
+                    </li>
+                </ul>
             </li>
             <li role="presentation">
                 <a href="/forWord/paper" target="mainFrame">
                     <span class="glyphicon glyphicon-file" style="margin-right: 20px"></span>试卷管理
+                    <ul class="nav nav-">
+
+                    </ul>
                 </a>
             </li>
         </ul>
 </div>
-<div class="splitter"></div>
 <div class="pageContent">
-    <iframe src="/forWord/student" id="mainFrame" name="mainFrame"
+    <iframe src="/forWord/homepage" id="mainFrame" name="mainFrame"
              width="100%"  height="100%" frameBorder="0">
     </iframe>
 </div>
@@ -93,6 +112,12 @@
             }
         });
     };
+
+    $("ul>li").click(function () {
+        $(this).children(".nav").slideDown(500);
+        $(this).siblings().children(".nav").slideUp(500)
+
+    })
 
     $(".nav li").click(function() {
         $(".active").removeClass('active');
