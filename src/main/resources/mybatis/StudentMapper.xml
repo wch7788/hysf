@@ -2,10 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.demo.mapper.StudentMapper">
  <resultMap id="studentRM" type="com.example.demo.bean.Student">
-     <id column="id" property="id" jdbcType="INTEGER"></id>
-     <result column="name" property="name" jdbcType="VARCHAR"></result>
-     <result column="number" property="number" jdbcType="VARCHAR"></result>
-     <result column="class_id" property="classId" jdbcType="INTEGER"></result>
+     <id column="id" property="id" jdbcType="INTEGER"/>
+     <result column="name" property="name" jdbcType="VARCHAR"/>
+     <result column="number" property="number" jdbcType="VARCHAR"/>
+     <result column="class_id" property="classId" jdbcType="INTEGER"/>
+     <result column="phone" property="phone" jdbcType="VARCHAR"/>
+     <result column="birth_day" property="birthDay" jdbcType="DATE"/>
+     <result column="sex" property="sex" jdbcType="VARCHAR"/>
  </resultMap>
 
     <select id="getStudentList" resultMap="studentRM">
@@ -15,4 +18,17 @@
             AND name LIKE CONCAT(CONCAT('%', #{name}), '%')
         </if>
     </select>
+
+    <select id="getStudentById" resultMap="studentRM">
+        select * from t_student
+        where id=#{id}
+    </select>
+
+    <update id="saveStudent" parameterType="com.example.demo.bean.Student">
+        update  t_student
+        set
+            phone=#{phone}
+        WHERE number=#{number}
+    </update>
 </mapper>
+

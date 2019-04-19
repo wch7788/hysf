@@ -7,4 +7,9 @@ import com.example.demo.dto.student.StudentRequestDto;
 public interface StudentService {
 
     PageResponseDto<Student> getStudentList(StudentRequestDto studentRequestDto);
+
+    Student getStudentById(int id);
+
+    Boolean saveStudent(Student student);
+
 }

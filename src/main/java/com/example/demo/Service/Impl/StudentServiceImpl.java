@@ -23,4 +23,14 @@ public class StudentServiceImpl implements StudentService {
         return new PageResponseDto<>(studentPage);
 
     }
+
+    @Override
+    public Student getStudentById(int id) {
+           return studentMapper.getStudentById(id);
+    }
+
+    @Override
+    public Boolean saveStudent(Student student) {
+           return studentMapper.saveStudent(student);
+    }
 }

@@ -9,10 +9,7 @@ import com.example.demo.util.Utils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -24,10 +21,25 @@ public class StudentController {
      @Autowired
     StudentService studentService;
 
-    @ApiOperation(value = "获取数据")
+    @ApiOperation(value = "按条件获取学生数据")
     @PostMapping("/list")
-    public Map<String, ?> list(@RequestBody StudentRequestDto studentRequestDto) {
+    public Map<String, ?> listStudent(@RequestBody StudentRequestDto studentRequestDto) {
         PageResponseDto<Student> studentResult=studentService.getStudentList(studentRequestDto);
         return JSONResult.fillResult(Utils.ResultStatus.OK,studentResult.getResultMap(),"成功");
     }
+
+    @ApiOperation(value = "获取指定ID学生数据")
+    @GetMapping("/getStudent/{id}")
+    public Map<String, ?> getStudent(@PathVariable("id") int id) {
+        Student student=studentService.getStudentById(id);
+        return JSONResult.fillResult(Utils.ResultStatus.OK,student,"成功");
+    }
+
+    @ApiOperation(value = "保存学生信息")
+    @PostMapping("/saveStudent")
+    public Map<String, ?> saveStudent(@RequestBody  Student student) {
+        Boolean result=studentService.saveStudent(student);
+        return JSONResult.fillResult(Utils.ResultStatus.OK,result,"成功");
+    }
+
 }

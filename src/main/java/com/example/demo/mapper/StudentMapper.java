@@ -9,4 +9,9 @@ import org.apache.ibatis.annotations.Mapper;
 public interface StudentMapper {
 
     Page<Student> getStudentList(StudentRequestDto studentRequestDto);
+
+    Student getStudentById(int id);
+
+    Boolean saveStudent(Student student);
+
 }
