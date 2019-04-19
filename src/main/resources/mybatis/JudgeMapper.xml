@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.JudgeMapper">
+
+    <resultMap id="JudgeRM" type="com.example.demo.dto.judge.JudgeResponseDto">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="question_id" property="questionId" jdbcType="INTEGER"/>
+        <result column="question" property="question" jdbcType="VARCHAR"/>
+        <result column="answer" property="answer" jdbcType="VARCHAR"/>
+        <result column="level" property="level" jdbcType="VARCHAR"/>
+        <result column="name" property="courseName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getJudgeList" resultMap="JudgeRM">
+                select id,question_id,question,answer,level,name
+                from t_judge_question j
+                left join
+                (select level,name,q.id as questionid
+                from t_question q
+                left join t_course c
+                on q.course_id=c.number) pp
+                on pp.questionid=j.question_id
+    </select>
+
+    <select id="getJudgeById" resultMap="JudgeRM">
+        select id, question_id, question, answer, level, name
+        from t_judge_question j
+                 left join (select level, name, q.id as questionid from t_question q
+                                                                            left join t_course c
+                                                                                on q.course_id = c.number) pp
+                     on pp.questionid = j.question_id
+        where j.id=#{id}
+    </select>
+
+    <update id="updateJudge" parameterType="com.example.demo.bean.Judge">
+          update t_judge_question
+          set
+              question=#{question},
+              answer=#{answer}
+          WHERE id=#{id}
+    </update>
+
+    <insert id="addJudgeList">
+        insert into t_judge_question
+                (question_id,question,answer)
+        values
+        <foreach collection="list" item="item"  index="index" separator=",">
+            (#{item.questionId},#{item.question},#{item.answer})
+        </foreach>
+
+    </insert>
+
+</mapper>

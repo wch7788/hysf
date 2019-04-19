@@ -172,7 +172,6 @@
             }
         });
 
-
     });
 
     $("#searchBtn").click(function () {

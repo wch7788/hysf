@@ -54,17 +54,17 @@
                 </a>
                 <ul class="nav nav-stacked nav-pills" style="display: none; ">
                     <li role="presentation">
-                        <a href="/forWord/student" target="mainFrame">
+                        <a href="/forWord/choice" target="mainFrame">
                             <span class="glyphicon glyphicon-font" style="margin-right: 20px"></span>选择题
                         </a>
                     </li>
                     <li role="presentation">
-                        <a href="/forWord/paper" target="mainFrame">
+                        <a href="/forWord/judge" target="mainFrame">
                             <span class="glyphicon glyphicon-ok" style="margin-right: 20px"></span>判断题
                         </a>
                     </li>
                     <li role="presentation">
-                        <a href="/forWord/paper" target="mainFrame">
+                        <a href="/forWord/text" target="mainFrame">
                             <span class="glyphicon glyphicon-comment" style="margin-right: 20px"></span>主观题
                         </a>
                     </li>
@@ -81,7 +81,7 @@
         </ul>
 </div>
 <div class="pageContent">
-    <iframe src="/forWord/homepage" id="mainFrame" name="mainFrame"
+    <iframe src="/forWord/judge" id="mainFrame" name="mainFrame"
              width="100%"  height="100%" frameBorder="0">
     </iframe>
 </div>
