@@ -18,7 +18,7 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" title="logoTitle" href="">logo</a>
+            <a class="navbar-brand" title="logoTitle" href="">淮阴师范学院</a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -75,7 +75,7 @@
         </ul>
 </div>
 <div class="pageContent">
-    <iframe src="/forWord/judge" id="mainFrame" name="mainFrame"
+    <iframe src="/forWord/homepage" id="mainFrame" name="mainFrame"
              width="100%"  height="100%" frameBorder="0">
     </iframe>
 </div>
