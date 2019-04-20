@@ -8,10 +8,8 @@
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <title>判断题</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/load.css">
-    <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
 </head>
 <body>
 <div class="spinner">
@@ -128,7 +126,7 @@
     </div>
 </div>
 <script src="/js/jquery-3.3.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 <script src="/js/sweetAlert2.all.min.js"></script>
 <script src="/js/bootstrap-paginator.js"></script>
 <script type="text/javascript">
