@@ -50,5 +50,12 @@
 
     </insert>
 
+    <select id="getQuestionType" resultType="map">
+        select DISTINCT q.id as id,q.level as level,c.name as courseName
+        from t_question q
+        left join t_course c
+                on q.course_id=c.number
+        where q.type=#{type}
+    </select>
 
 </mapper>

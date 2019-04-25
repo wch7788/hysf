@@ -6,6 +6,7 @@ import com.example.demo.dto.judge.JudgeRequestDto;
 import com.example.demo.dto.judge.JudgeResponseDto;
 
 import java.util.List;
+import java.util.Map;
 
 public interface JudgeService {
 
@@ -16,5 +17,7 @@ public interface JudgeService {
     Boolean updateJudge(Judge judge);
 
     Boolean addJudgeList(List<Judge> judgeList);
+
+    List<Map<String, Object>> getQuestionList(String type);
 
 }

@@ -53,4 +53,13 @@ public class JudgeController {
         Boolean result=judgeService.addJudgeList(judgeList);
         return JSONResult.fillResult(Utils.ResultStatus.OK,result,"成功");
     }
+
+    @ApiOperation(value = "获取题型难度")
+    @GetMapping("/getQuestionType/{type}")
+    public Map<String, ?> getQuestionType(@PathVariable("type") String type) {
+        List<Map<String,Object>> result=judgeService.getQuestionList(type);
+        return JSONResult.fillResult(Utils.ResultStatus.OK,result,"成功");
+    }
+
+
 }

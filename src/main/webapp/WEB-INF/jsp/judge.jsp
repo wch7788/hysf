@@ -104,6 +104,11 @@
                 <form>
                     <div class="judgeQuestion">
                         <div class="form-group">
+                            <label for="course-select" class="control-label">科目:</label>
+                            <select id="course-select" class="form-control">
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="message-text" class="control-label">题目:</label>
                             <textarea class="form-control" id="message-text"></textarea>
                         </div>
@@ -198,7 +203,28 @@
                alert(err)
            }
        });
+
+       var str=getQuestionType()
+       $("#course-select").html("");
+       $("#course-select").append(str);
    });
+
+   function getQuestionType(){
+       var str="";
+   $.ajax({
+           type: "GET",
+           async: false,
+           url: "/v1/judge/getQuestionType/judge",
+           dataType: 'json',
+           success: function (map) {
+               let questionType=map.result;
+               $(questionType).each(function (index,value) {
+                   str+="<option value=\""+value.id+"\">"+"所属课程:"+value.courseName+","+"难度:"+value.level+"</option>\n"
+               })
+           }
+       });
+       return str;
+   }
 
    $("body").on('click', '#judgeInfo', function () {
        let id=$(this).val();
@@ -218,7 +244,7 @@
    });
 
    $("body").on('click', '#remove', function () {
-       $(this).parents(".judgeQuestion").siblings("h5").eq(0).remove();
+       $(this).parents(".judgeQuestion").next(".page-header").remove()
        $(this).parents(".judgeQuestion").remove()
    });
 
@@ -266,7 +292,7 @@
 
        $(".judgeQuestion").each(function(index,element){
            let judge={
-               questionId:1,
+               questionId:$(this).find("#course-select").val(),
                answer:$(this).find("input").val(),
                question:$(this).find("textarea").val()
            }
@@ -293,7 +319,12 @@
    })
 
    $("#addMoreJudge").click(function () {
-       const s = "<div class=\"judgeQuestion\">\n" +
+       var str=getQuestionType();
+       const s = "<div class=\"judgeQuestion\">\n" +" <div class=\"form-group\">\n" +
+           "                            <label for=\"course-select\" class=\"control-label\">科目:</label>\n" +
+           "                            <select id=\"course-select\" class=\"form-control\">\n" +str+
+           "                            </select>\n" +
+           "                        </div>"+
            "                        <div class=\"form-group\">\n" +
            "                            <label for=\"message-text\" class=\"control-label\">题目:</label>\n" +
            "                            <textarea class=\"form-control\" id=\"message-text\"></textarea>\n" +
@@ -341,6 +372,7 @@
        $("#recipient-answer").val(judge.answer)
        $("#save").val(judge.id);
    }
+
 </script>
 </body>
 </html>

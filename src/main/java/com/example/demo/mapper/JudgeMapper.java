@@ -7,6 +7,7 @@ import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface JudgeMapper {
@@ -19,4 +20,5 @@ public interface JudgeMapper {
 
     Boolean addJudgeList(List<Judge> judgeList);
 
+    List<Map<String, Object>> getQuestionType(String type);
 }

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class JudgeServiceImpl implements JudgeService {
@@ -39,5 +40,16 @@ public class JudgeServiceImpl implements JudgeService {
     @Override
     public Boolean addJudgeList(List<Judge> judgeList) {
         return judgeMapper.addJudgeList(judgeList);
+    }
+
+    @Override
+    public List<Map<String, Object>> getQuestionList(String type) {
+        if("judge".equals(type)){
+           return judgeMapper.getQuestionType("判断题");
+        }
+        if("choice".equals(type)){
+            return judgeMapper.getQuestionType("选择题");
+        }
+        return null;
     }
 }
