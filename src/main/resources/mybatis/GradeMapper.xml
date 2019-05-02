@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.mapper.GradeMapper">
+
+    <resultMap id="GradeRM" type="com.example.demo.dto.grade.GradeResponse">
+        <result column="student_id" property="studentId" jdbcType="VARCHAR"/>
+        <result column="grade" property="grade" jdbcType="DECIMAL"/>
+        <result column="courseName" property="courseName" jdbcType="VARCHAR"/>
+        <result column="date" property="date" jdbcType="DATE"/>
+        <result column="studentName" property="studentName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getGradeList" resultMap="GradeRM">
+        select g.student_id,g.grade,g.date,c.name as courseName,s.name as studentName
+        from t_grade g
+        left join t_course c on c.number=g.course_id
+        left join t_student s on g.student_id=s.number
+        where 1=1
+        <if test="courseId!=null and courseId!=''">
+            AND g.course_id=#{courseId}
+        </if>
+        <if test="date!=null ">
+            AND g.date=#{date}
+        </if>
+    </select>
+
+</mapper>

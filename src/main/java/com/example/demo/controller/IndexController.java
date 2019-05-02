@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@Api(tags = "登录页面")
+@Api(tags = "跳转页面")
 public class IndexController {
 
     @ApiOperation(value = "登录页面")

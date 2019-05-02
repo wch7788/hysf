@@ -52,4 +52,9 @@ public class JudgeServiceImpl implements JudgeService {
         }
         return null;
     }
+
+    @Override
+    public Boolean deleteById(int id) {
+        return judgeMapper.deleteById(id)&&judgeMapper.deletePaperQuestion(id);
+    }
 }

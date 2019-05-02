@@ -62,4 +62,12 @@ public class JudgeController {
     }
 
 
+    @ApiOperation(value = "根据Id删除试题")
+    @GetMapping("/deleteJudge/{id}")
+    public Map<String, ?> deleteJudge(@PathVariable("id") int id) {
+        Boolean bool=judgeService.deleteById(id);
+        return JSONResult.fillResult(Utils.ResultStatus.OK,bool,"成功");
+    }
+
+
 }

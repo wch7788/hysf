@@ -10,6 +10,28 @@
         <result column="teacherName" property="teacherName" jdbcType="VARCHAR"/>
     </resultMap>
 
+    <resultMap id="judgeRM" type="com.example.demo.bean.Judge">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="question" property="question" jdbcType="VARCHAR"/>
+        <result column="answer" property="answer" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="choiceRM" type="com.example.demo.bean.Choice">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="question" property="question" jdbcType="VARCHAR"/>
+        <result column="answer" property="answer" jdbcType="VARCHAR"/>
+        <result column="choice_one" property="choiceOne" jdbcType="VARCHAR"/>
+        <result column="choice_two" property="choiceTwo" jdbcType="VARCHAR"/>
+        <result column="choice_three" property="choiceThree" jdbcType="VARCHAR"/>
+        <result column="choice_four" property="choiceFour" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="textRM" type="com.example.demo.bean.Text">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="question" property="question" jdbcType="VARCHAR"/>
+        <result column="answer" property="answer" jdbcType="VARCHAR"/>
+    </resultMap>
+
     <select id="getPaperList" parameterType="com.example.demo.dto.paper.PaperRequestDto" resultMap="paperRM">
         SELECT p.id,p.create_date,p.info,c.name as courseName,t.name as teacherName
         FROM t_paper p
@@ -17,4 +39,56 @@
         LEFT JOIN t_teacher t on t.number=p.teacher_id
     </select>
 
+    <select id="getJudgeList" resultMap="judgeRM">
+        select q.id,q.question,q.answer from t_paper_question p
+        left join t_judge_question q
+                on p.question_id=q.id
+        where p.paper_id=#{id} AND p.type='1'
+    </select>
+
+    <select id="getChoiceList" resultMap="choiceRM">
+        select q.id,q.question,q.answer,q.choice_one,q.choice_two,q.choice_three,q.choice_four from t_paper_question p
+                                                 left join t_choice_question q
+                                                     on p.question_id=q.id
+        where p.paper_id=#{id} AND p.type='2'
+    </select>
+
+    <select id="getTextList" resultMap="textRM">
+        select q.id,q.question,q.answer from t_paper_question p
+                                                 left join t_text_question q
+                                                     on p.question_id=q.id
+        where p.paper_id=#{id} AND p.type='3'
+    </select>
+
+    <insert id="addPaper" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_paper (
+                `course_id`,
+                `create_date`,
+                `teacher_id`,
+                `info`
+                )
+        VALUES
+               (
+                       #{courseId},
+                        now(),
+                       #{teacherId},
+                       #{info}
+                       ) ;
+    </insert>
+
+    <insert id="addPaperQuestion" parameterType="java.util.List">
+        INSERT INTO `exam`.`t_paper_question` (
+                `paper_id`,
+                `question_id`,
+                `type`
+                )
+        VALUES
+        <foreach collection="list" index="index" item="item" separator=",">
+            (
+            #{item.paperId},
+            #{item.questionId},
+            #{item.type}
+            )
+        </foreach>
+    </insert>
 </mapper>

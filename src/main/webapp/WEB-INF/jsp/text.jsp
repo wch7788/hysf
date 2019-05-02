@@ -15,13 +15,16 @@
 <body>
 
 <h1>StudentInfo</h1>
+<button id="dowload">xia</button>
 
 <script src="/js/jquery-3.3.1.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/sweetAlert2.all.min.js"></script>
 <script src="/js/bootstrap-paginator.js"></script>
 <script type="text/javascript">
-
+   $("#dowload").click(function () {
+       window.location.href="/v1/grade/export"
+   })
 </script>
 </body>
 </html>

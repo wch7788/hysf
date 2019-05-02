@@ -20,4 +20,6 @@ public interface JudgeService {
 
     List<Map<String, Object>> getQuestionList(String type);
 
+    Boolean deleteById(int id);
+
 }

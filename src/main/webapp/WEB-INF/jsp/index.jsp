@@ -42,8 +42,13 @@
                     <span class="glyphicon glyphicon-user" style="margin-right: 20px"></span>学生管理
                 </a>
             </li>
+            <li role="presentation">
+                <a href="/forWord/grade" target="mainFrame">
+                    <span class="glyphicon glyphicon-bookmark" style="margin-right: 20px"></span>成绩管理
+                </a>
+            </li>
             <li role="presentation" id="paperList">
-                <a href="/forWord/student" target="mainFrame">
+                <a href="/forWord/judge" target="mainFrame">
                     <span class="glyphicon glyphicon-duplicate" style="margin-right: 20px"></span>试题管理
                 </a>
                 <ul class="nav nav-stacked nav-pills" style="display: none; ">
@@ -65,11 +70,8 @@
                 </ul>
             </li>
             <li role="presentation">
-                <a href="/forWord/student" target="mainFrame">
-                    <span class="glyphicon glyphicon-file" style="margin-right: 20px"></span>试卷管理
-                    <ul class="nav nav-">
-
-                    </ul>
+                <a href="/forWord/paper" target="mainFrame">
+                    <span class="glyphicon glyphicon-paperclip" style="margin-right: 20px"></span>试卷管理
                 </a>
             </li>
         </ul>

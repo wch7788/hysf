@@ -11,57 +11,142 @@
 
     <!-- Bootstrap -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/load.css">
 </head>
 <body>
-<h1>Paper</h1>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id="modelButton">Open modal for @mdo</button>
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="exampleModalLabel">
-                    <span class="glyphicon glyphicon-user" style="margin-right: 10px"></span>学生个人详细信息</h4>
-            </div>
-            <div class="modal-body">
-                <form class="form-horizontal">
-                    <div class="form-group form-group-sm">
-                        <label for="recipient-name" class="col-sm-2 control-label">Recipient:</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control " id="recipient-name" readonly="readonly">
-                        </div>
-                    </div>
-                    <div class="form-group form-group-sm">
-                        <label for="recipient-number" class="col-sm-2 control-label">Recipient:</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control " id="recipient-number" readonly="readonly">
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="save">保存</button>
-            </div>
-        </div>
-    </div>
+<div class="spinner">
+    <div class="rect1"></div>
+    <div class="rect2"></div>
+    <div class="rect3"></div>
+    <div class="rect4"></div>
+    <div class="rect5"></div>
 </div>
+<h3><span class="glyphicon glyphicon-tags"> 试卷信息管理</span></h3>
+<div class="page-header"></div>
+<button type="button" class="btn btn-primary" id="addBtn" >新增试卷</button>
 
-
-<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
-<!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+<div style="margin-top: 10px">
+    <table class="table table-striped table-hover" style="table-layout:fixed">
+        <tbody></tbody>
+    </table>
+</div>
+<div style="text-align: right;margin-bottom: 10%">
+    <ul class="pagination"></ul>
+</div>
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/sweetAlert2.all.min.js"></script>
+<script src="/js/bootstrap-paginator.js"></script>
 <script type="text/javascript">
 
-    $('#modelButton').click(function () {
-         $('#recipient-name').val("WCHWCH")
+    $(function () {
+        var size = 8;
+        var studentInfo = {
+            'pageNum': 1,
+            'pageSize': size
+        }
+        $.ajax({
+            type: "POST",
+            url: "/v1/paper/list",
+            data: JSON.stringify(studentInfo),
+            contentType: "application/json",
+            dataType: 'json',
+            beforeSend: function () {
+                $(".spinner").show();
+            },
+            success: function (result) {
+                $(".spinner").hide();
+                var totalPage = result.result.pageInfo.totalPage;
+                if (totalPage == 0) {
+                    totalPage = 1;
+                }
+                showTable(result, 1, size);
+                var options = {
+                    bootstrapMajorVersion: 3,
+                    currentPage: 1,
+                    totalPages: totalPage,
+                    itemTexts: function (type, page, current) {
+                        switch (type) {
+                            case "first":
+                                return "第一页";
+                            case "prev":
+                                return "上一页";
+                            case "next":
+                                return "下一页";
+                            case "last":
+                                return "最后一页";
+                            case "page":
+                                return page;
+                        }
+                    },
+                    onPageClicked: function (event, originalEvent, type, page) {
+                        var studentPage = {
+                            'pageNum': page,
+                            'pageSize': size
+                        }
+                        $.ajax({
+                            type: "POST",
+                            url: "/v1/paper/list",
+                            data: JSON.stringify(studentPage),
+                            contentType: "application/json",
+                            dataType: 'json',
+                            beforeSend: function () {
+                                $(".spinner").show();
+                            },
+                            success: function (result) {
+                                $(".spinner").hide();
+                                showTable(result, page, size);
+                            }
+
+                        })
+                    }
+                }
+                $(".pagination").bootstrapPaginator(options)
+            },
+            error: function (err) {
+                alert(err)
+            }
+        });
+
+    });
+
+    function showTable(result, pageNumber, pageSize) {
+        var list = result.result.dataList;
+        var tbody = "<tr>" +
+            "<th></th>" +
+            "<th>试卷info</th>" +
+            "<th>所属学科</th>" +
+            "<th>所属教师</th>" +
+            "<th>创建时间</th>" +
+            "<th>操作</th>" +
+            "</tr>";
+        $.each(list, function (index, value) {
+            var trs = "";
+            trs += "<tr>\n" +
+                "<td class=\"id\">" + (parseInt(index) + 1 + (pageNumber - 1) * pageSize) + "</td>" +
+                "<td>" + value.info + "</td>" +
+                "<td>" + value.courseName + "</td>" +
+                "<td>" + value.teacherName + "</td>" +
+                "<td>" + value.createDate + "</td>" +
+                "<td><button class=\"btn btn-info\" id=\"paperInfo\"  value=" + value.id + ">试卷详情</button></td>\n" +
+                "</tr>";
+            tbody += trs;
+        });
+
+
+        $("tbody").html(tbody);
+    };
+
+    $("body").on('click', '#paperInfo', function () {
+        let paperId=$(this).val();
+        sessionStorage.setItem("paperId",paperId)
+        window.location.href="/forWord/paperInfo"
+    });
+
+    $("#addBtn").click(function (){
+        window.location.href="/forWord/addPaper"
     })
 
-    $('#save').click(function () {
-        window.location.reload()
-
-    })
 </script>
 </body>
 </html>

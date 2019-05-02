@@ -47,7 +47,7 @@ public class PaperResponseDto {
         this.teacherName = teacherName;
     }
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="GMT+8")
     public Date getCreateDate() {
         return createDate;
     }

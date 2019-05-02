@@ -21,4 +21,9 @@ public interface JudgeMapper {
     Boolean addJudgeList(List<Judge> judgeList);
 
     List<Map<String, Object>> getQuestionType(String type);
+
+    Boolean deleteById(int id);
+
+    boolean deletePaperQuestion(int id);
+
 }

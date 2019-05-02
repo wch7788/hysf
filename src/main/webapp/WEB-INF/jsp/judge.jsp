@@ -233,7 +233,6 @@
            url: "/v1/judge/getJudge/"+id,
            dataType: 'json',
            success:function (map) {
-               console.log(map)
                let judge=map.result;
                showJudge(judge);
            },
@@ -246,6 +245,38 @@
    $("body").on('click', '#remove', function () {
        $(this).parents(".judgeQuestion").next(".page-header").remove()
        $(this).parents(".judgeQuestion").remove()
+   });
+
+   $("body").on('click', '#deleteJudge', function () {
+       Swal.fire({
+           type: 'warning', // 弹框类型
+           title: '删除试题', //标题
+           text: "您确定要删除题目吗？",
+           confirmButtonColor: '#3085d6',
+           confirmButtonText: '确定',
+           showCancelButton: true,
+           cancelButtonColor: '#d33',
+           cancelButtonText: "取消",
+           focusCancel: true
+       }).then((isConfirm)=>{
+           if (isConfirm.value) {
+               let deleteId=$(this).val()
+               $.ajax({
+                   type: "GET",
+                   url: "/v1/judge/deleteJudge/"+deleteId,
+                   dataType: 'json',
+                   success:function (map) {
+                       Swal.fire("删除成功", "", "success").then((isConfirm)=>{
+                           window.location.reload();
+                       });
+                   },
+                   error:function (result) {
+                       alert("系统错误")
+                   }
+               })
+
+           }
+       });
    });
 
 
@@ -358,7 +389,9 @@
                "<td>" + value.questionId + "</td>" +
                "<td>" + value.courseName + "</td>" +
                "<td>" + value.level + "</td>" +
-               "<td><button class=\"btn btn-info\" id=\"judgeInfo\" data-toggle=\"modal\" data-target=\"#exampleModal\" value=" + value.id + ">题目详情</button></td>\n" +
+               "<td><button class=\"btn btn-info\" id=\"judgeInfo\" data-toggle=\"modal\" data-target=\"#exampleModal\" value=" + value.id + ">题目详情</button>" +
+               " <button type=\"button\" class=\"btn btn-danger\" id=\"deleteJudge\" value="+value.id+">删除</button>"+
+               "</td>\n" +
                "</tr>";
            tbody += trs;
        });

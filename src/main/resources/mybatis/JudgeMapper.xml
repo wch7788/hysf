@@ -58,4 +58,16 @@
         where q.type=#{type}
     </select>
 
+    <delete id="deleteById">
+        DELETE
+        FROM
+        t_judge_question
+        WHERE id = #{id} ;
+    </delete>
+
+    <delete id="deletePaperQuestion">
+        delete
+        from t_paper_question
+        where paper_id=#{id}
+    </delete>
 </mapper>
