@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.TextMapper">
+
+    <resultMap id="textRM" type="com.example.demo.dto.text.TextResponseDto">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="question_id" property="questionId" jdbcType="INTEGER"/>
+        <result column="question" property="question" jdbcType="VARCHAR"/>
+        <result column="answer" property="answer" jdbcType="VARCHAR"/>
+        <result column="level" property="level" jdbcType="VARCHAR"/>
+        <result column="name" property="courseName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getTextList" resultMap="textRM">
+        select id,question_id,question,answer,level,name
+        from t_text_question t
+                 left join
+                     (select level,name,q.id as questionid
+                      from t_question q
+                               left join t_course c
+                                   on q.course_id=c.number) pp
+                     on pp.questionid=t.question_id
+    </select>
+</mapper>

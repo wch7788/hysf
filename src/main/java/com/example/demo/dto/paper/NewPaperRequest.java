@@ -4,6 +4,7 @@ public class NewPaperRequest {
 
     private String info;
     private String courseId;
+    private String teacherId;
     private int[] judgeList;
     private int[] choiceList;
     private int[] textList;
@@ -11,9 +12,10 @@ public class NewPaperRequest {
     public NewPaperRequest() {
     }
 
-    public NewPaperRequest(String info, String courseId, int[] judgeList, int[] choiceList, int[] textList) {
+    public NewPaperRequest(String info, String courseId, String teacherId, int[] judgeList, int[] choiceList, int[] textList) {
         this.info = info;
         this.courseId = courseId;
+        this.teacherId = teacherId;
         this.judgeList = judgeList;
         this.choiceList = choiceList;
         this.textList = textList;
@@ -57,5 +59,13 @@ public class NewPaperRequest {
 
     public void setTextList(int[] textList) {
         this.textList = textList;
+    }
+
+    public String getTeacherId() {
+        return teacherId;
+    }
+
+    public void setTeacherId(String teacherId) {
+        this.teacherId = teacherId;
     }
 }

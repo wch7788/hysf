@@ -71,6 +71,42 @@
     </div>
 </div>
 
+<div class="modal fade" id="addChoiceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel2">选择题选项</h4>
+            </div>
+            <div class="modal-body">
+                <form id="choiceForm"></form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="addChoiceCheckBtn" data-dismiss="modal">添加</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addTextModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel3">主观题选项</h4>
+            </div>
+            <div class="modal-body">
+                <form id="textForm"></form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="addTextCheckBtn" data-dismiss="modal">添加</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="/js/jquery-3.3.1.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/sweetAlert2.all.min.js"></script>
@@ -95,22 +131,71 @@
             dataType: 'json',
             success:function (map){
                 let result=map.result;
-                showList(result);
+                showList(result,'judge');
             }
         })
     });
 
-    function showList(result) {
+    $("#addChoiceBtn").click(function (){
+        let choiceInfo = {
+            'pageNum': 0,
+            'pageSize': 0
+        }
+        $.ajax({
+            type: "POST",
+            url: "/v1/choice/list",
+            data: JSON.stringify(choiceInfo),
+            contentType: "application/json",
+            dataType: 'json',
+            success:function (map){
+                let result=map.result;
+                showList(result,'choice');
+            }
+        })
+    });
+
+    $("#addTextBtn").click(function (){
+        let choiceInfo = {
+            'pageNum': 0,
+            'pageSize': 0
+        }
+        $.ajax({
+            type: "POST",
+            url: "/v1/text/list",
+            data: JSON.stringify(choiceInfo),
+            contentType: "application/json",
+            dataType: 'json',
+            success:function (map){
+                let result=map.result;
+                showList(result,'text');
+            }
+        })
+    });
+
+    function showList(result,type) {
         let str='';
+        let className='';
+        if(type=='judge'){
+            className='judgeCheck'
+        }else if (type=='choice'){
+            className='choiceCheck'
+        } else{
+            className='textCheck'
+        }
         $.each(result.dataList,function (index,value){
                str+="<div class=\"form-group\">\n" +
-                   "                        <input type=\"checkbox\" class=\"judgeCheck\" value=\""+value.id+"\">\n" +
-                   "                        <label  class=\"control-label\">选择题"+(index+1)+":</label>\n" +
+                   "                        <input type=\"checkbox\" class=\""+className+"\" value=\""+value.id+"\">\n" +
+                   "                        <label  class=\"control-label\">题目"+(index+1)+":</label>\n" +
                    "                        <textarea class=\"form-control\"  readonly=\"readonly\">"+value.question+"</textarea>\n" +
                    "                    </div>"
         })
-        $("#judgeForm").html("");
-        $("#judgeForm").append(str);
+        if(type=='judge'){
+            $("#judgeForm").html(str);
+        }else if (type=='choice'){
+            $("#choiceForm").html(str);
+        } else{
+            $('#textForm').html(str);
+        }
 
     }
 
@@ -123,27 +208,73 @@
                 str+="<span class=\"label label-default\">"+id+"</span>"
             }
         })
-        $("#judgeList").html("");
-        $("#judgeList").append(str);
+        $("#judgeList").html(str);
     })
 
-    $("#submit").click(function (){
-        let judgeArr=eachJudge();
-        let paper={
-            info:$("#paperTitle").val(),
-            judgeList:judgeArr
-        }
-        $.ajax({
-            type: "POST",
-            url: "/v1/paper/addPaper",
-            data: JSON.stringify(paper),
-            contentType: "application/json",
-            dataType: 'json',
-            success:function (map){
-                console.log(map)
+    $("#addChoiceCheckBtn").click(function (){
+        let str='';
+        $(".choiceCheck").each(function(index,value) {
+            let checked=$(this).prop('checked');
+            if(checked){
+                let id=$(this).val()
+                str+="<span class=\"label label-default\">"+id+"</span>"
             }
+        })
+        $("#choiceList").html(str);
+    })
 
-       })
+    $("#addTextCheckBtn").click(function (){
+        let str='';
+        $(".textCheck").each(function(index,value) {
+            let checked=$(this).prop('checked');
+            if(checked){
+                let id=$(this).val()
+                str+="<span class=\"label label-default\">"+id+"</span>"
+            }
+        })
+        $("#textList").html(str);
+    })
+
+
+
+    $("#submit").click(function (){
+        Swal.fire({
+            type: 'warning', // 弹框类型
+            title: '新增试卷', //标题
+            text: "您确定要添加试卷吗？",
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: '确定',
+            showCancelButton: true,
+            cancelButtonColor: '#d33',
+            cancelButtonText: "取消",
+            focusCancel: true
+        }).then((isConfirm)=>{
+            if (isConfirm.value) {
+                let judgeArr=eachJudge();
+                let choiceArr=eachChoice();
+                let textArr=eachText();
+                let paper={
+                    info:$("#paperTitle").val(),
+                    courseId:$("#paperCourse").val(),
+                    teacherId:'1001',
+                    judgeList:judgeArr,
+                    choiceList:choiceArr,
+                    textList:textArr
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "/v1/paper/addPaper",
+                    data: JSON.stringify(paper),
+                    contentType: "application/json",
+                    dataType: 'json',
+                    success:function (map){
+                        Swal.fire("保存成功", "", "success").then((isConfirm)=>{
+                            window.location.href="/forWord/paper"
+                        });
+                    }
+                })
+            }
+        });
     })
 
     function eachJudge() {
@@ -151,6 +282,24 @@
         $("#judgeList span").each(function (index, value) {
             let judgeId = $(this).text()
             arr.push(judgeId);
+        })
+        return arr;
+    }
+
+    function eachChoice() {
+        let arr=new Array();
+        $("#choiceList span").each(function (index,value){
+            let choiceId=$(this).text();
+            arr.push(choiceId);
+        })
+        return arr;
+    }
+
+    function eachText() {
+        let arr=new Array();
+        $("#textList span").each(function (index,value){
+            let textId=$(this).text();
+            arr.push(textId);
         })
         return arr;
     }

@@ -1,8 +1,6 @@
 package com.example.demo;
 
-import com.example.demo.mapper.AddressMapper;
-import com.example.demo.mapper.ClassMapper;
-import com.example.demo.mapper.StudentMapper;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 
 public class SpringBootMybatisApplicationTests {
-  @Autowired
-   AddressMapper addressmapper;
-  @Autowired
-  ClassMapper classmapper;
-  @Autowired
-  StudentMapper studentmapper;
+
   @Autowired
   BCryptPasswordEncoder bCryptPasswordEncoder;
 	
@@ -32,7 +25,6 @@ public class SpringBootMybatisApplicationTests {
   
    
    public void test(){
-       String password=bCryptPasswordEncoder.encode("abcdefg");
-       System.out.println(password);
+
    }
 }

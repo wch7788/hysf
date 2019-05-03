@@ -298,7 +298,6 @@
                    question:$("#recipient-question").val(),
                    answer:$("#recipient-answer").val()
                }
-               console.log(judgeInfo)
                 $.ajax({
                    type: "POST",
                    url: "/v1/judge/updateJudge",

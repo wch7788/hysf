@@ -49,19 +49,6 @@ public class PaperController {
         return JSONResult.fillResult(Utils.ResultStatus.OK,bool,"成功");
     }
 
-   /* @ApiOperation(value="导出成绩结果",produces="application/octet-stream")
-    @GetMapping(value="/export")
-    public void exportSingleVMERateResult(HttpServletResponse response) {
-        Workbook wb=new XSSFWorkbook();
-        try {
-            response.setContentType("application/octet-stream;charset=utf-8");
-            response.addHeader("Content-Disposition", "attachment;filename=" + "Result.xlsx");
-            wb.write(response.getOutputStream());
-            response.getOutputStream().close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
-    }*/
 
 }

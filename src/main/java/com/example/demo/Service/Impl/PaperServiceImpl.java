@@ -49,11 +49,15 @@ public class PaperServiceImpl implements PaperService {
     public boolean addPaper(NewPaperRequest newPaperRequest) {
         List<PaperQuestion> list=new ArrayList<>();
         String info=newPaperRequest.getInfo();
+        String teacherId=newPaperRequest.getTeacherId();
+        String courseId=newPaperRequest.getCourseId();
         int[] judgeId=newPaperRequest.getJudgeList();
         int[] choiceId=newPaperRequest.getChoiceList();
         int[] textId=newPaperRequest.getTextList();
         Paper paper=new Paper();
         paper.setInfo(info);
+        paper.setCourseId(courseId);
+        paper.setTeacherId(teacherId);
         Boolean bool=paperMapper.addPaper(paper);
         int paperId=paper.getId();
         if(judgeId!=null){
