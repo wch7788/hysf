@@ -21,4 +21,42 @@
                                    on q.course_id=c.number) pp
                      on pp.questionid=t.question_id
     </select>
+
+    <select id="getText" resultMap="textRM">
+        select id,question_id,question,answer,level,name
+        from t_text_question t
+                 left join
+                     (select level,name,q.id as questionid
+                      from t_question q
+                               left join t_course c
+                                   on q.course_id=c.number) pp
+                     on pp.questionid=t.question_id
+        WHERE t.id=#{id}
+    </select>
+
+    <update id="updateText" parameterType="com.example.demo.bean.Text">
+        update t_text_question
+        set
+            question=#{question},
+            answer=#{answer}
+        WHERE id=#{id}
+    </update>
+
+    <insert id="batchSaveTextList">
+        INSERT INTO `exam`.`t_text_question` (
+                `question_id`,
+                `question`,
+                `answer`
+                )
+        VALUES
+        <foreach collection="list" item="item"  index="index" separator=",">
+            (#{item.questionId},#{item.question},#{item.answer})
+        </foreach>
+    </insert>
+
+    <delete id="deleteById">
+        delete
+        from t_text_question
+        where id=#{id}
+    </delete>
 </mapper>

@@ -5,6 +5,7 @@ import com.example.demo.dto.paper.PaperRequestDto;
 import com.example.demo.dto.paper.PaperResponseDto;
 import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -22,5 +23,7 @@ public interface PaperMapper {
     Boolean addPaper(Paper paper);
 
     boolean addPaperQuestion(List<PaperQuestion> list);
+
+    Boolean deletePaperQuestion(@Param("questionId")int questionId,@Param("type")String type);
 
 }

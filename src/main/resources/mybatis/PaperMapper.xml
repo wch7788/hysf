@@ -91,4 +91,9 @@
             )
         </foreach>
     </insert>
+
+    <delete id="deletePaperQuestion">
+        delete from t_paper_question
+        where question_id=#{questionId} and type=#{type}
+    </delete>
 </mapper>

@@ -47,7 +47,6 @@
         <foreach collection="list" item="item"  index="index" separator=",">
             (#{item.questionId},#{item.question},#{item.answer})
         </foreach>
-
     </insert>
 
     <select id="getQuestionType" resultType="map">

@@ -18,10 +18,57 @@
         select id,question_id,question,choice_one,choice_two,choice_three,choice_four,answer,level,name
         from t_choice_question ch
                  left join
-                     (select level,name,q.id as questionid
+                     (select level,name,q.id as questionid,type
                       from t_question q
                                left join t_course c
                                    on q.course_id=c.number) pp
                      on pp.questionid=ch.question_id
     </select>
+
+    <select id="getChoiceById" resultMap="choiceRM">
+        select id,question_id,question,choice_one,choice_two,choice_three,choice_four,answer,level,name
+        from t_choice_question ch
+                 left join
+                     (select level,name,q.id as questionid,type
+                      from t_question q
+                               left join t_course c
+                                   on q.course_id=c.number) pp
+                     on pp.questionid=ch.question_id
+        where ch.id=#{id}
+    </select>
+
+    <delete id="deleteById">
+        delete from t_choice_question
+        where id=#{id}
+    </delete>
+
+    <update id="updateChoice">
+        UPDATE
+                `exam`.`t_choice_question`
+        SET
+            `question` = #{question},
+            `choice_one` = #{choiceOne},
+            `choice_two` = #{choiceTwo},
+            `choice_three` = #{choiceThree},
+            `choice_four` = #{choiceFour},
+            `answer` = #{answer}
+        WHERE id=#{id} ;
+    </update>
+
+    <insert id="batchSaveChoiceList">
+        INSERT INTO `exam`.`t_choice_question` (
+                `question_id`,
+                `question`,
+                `choice_one`,
+                `choice_two`,
+                `choice_three`,
+                `choice_four`,
+                `answer`
+                )
+        VALUES
+        <foreach collection="list" item="item"  index="index" separator=",">
+            (#{item.questionId},#{item.question},#{item.choiceOne},#{item.choiceTwo},#{item.choiceThree},#{item.choiceFour},#{item.answer})
+        </foreach>
+    </insert>
+
 </mapper>

@@ -46,11 +46,11 @@ public class JudgeServiceImpl implements JudgeService {
     public List<Map<String, Object>> getQuestionList(String type) {
         if("judge".equals(type)){
            return judgeMapper.getQuestionType("判断题");
-        }
-        if("choice".equals(type)){
+        } else if("choice".equals(type)){
             return judgeMapper.getQuestionType("选择题");
+        }else{
+            return judgeMapper.getQuestionType("主观题");
         }
-        return null;
     }
 
     @Override
