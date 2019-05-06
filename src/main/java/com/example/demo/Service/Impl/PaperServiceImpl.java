@@ -73,7 +73,7 @@ public class PaperServiceImpl implements PaperService {
             for(int i=0;i<choiceId.length;i++){
                 PaperQuestion pq=new PaperQuestion();
                 pq.setPaperId(paperId);
-                pq.setQuestionId(judgeId[i]);
+                pq.setQuestionId(choiceId[i]);
                 pq.setType("2");
                 list.add(pq);
             }
@@ -82,7 +82,7 @@ public class PaperServiceImpl implements PaperService {
             for(int i=0;i<textId.length;i++){
                 PaperQuestion pq=new PaperQuestion();
                 pq.setPaperId(paperId);
-                pq.setQuestionId(judgeId[i]);
+                pq.setQuestionId(textId[i]);
                 pq.setType("3");
                 list.add(pq);
             }
