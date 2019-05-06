@@ -88,6 +88,12 @@ public class PaperServiceImpl implements PaperService {
             }
         }
 
-        return paperMapper.addPaperQuestion(list)&&bool;
+        if(list.size()>0){
+            return paperMapper.addPaperQuestion(list)&&bool;
+
+        }else{
+            return bool;
+        }
+
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class GradeServiceImpl implements GradeService {
@@ -28,5 +29,28 @@ public class GradeServiceImpl implements GradeService {
         ExcelExportUtil.closeExportBigExcel();
         return workbook;
 
+    }
+
+    @Override
+    public List<Map<String, Object>> getCourseList() {
+        return gradeMapper.getCourseList();
+    }
+
+    @Override
+    public List<Map<String, Object>> getTeacherList() {
+        return gradeMapper.getTeacherList();
+    }
+
+    @Override
+    public List<Map<String, Object>> getGradeCourse() {
+        return gradeMapper.getGradeCourse();
+    }
+
+    @Override
+    public List<Date> getGradeDate(String courseId) {
+        if("0".equals(courseId)){
+            return null;
+        }
+        return gradeMapper.getGradeDate(courseId);
     }
 }

@@ -26,10 +26,11 @@
     </div>
     <div class="form-group" style="margin-left: 50px">
         <label for="paperCourse">所属科目：</label>
-        <select class="form-control" id="paperCourse">
-            <option value="1001">数学</option>
-            <option value="1002">语文</option>
-        </select>
+        <select class="form-control" id="paperCourse"></select>
+    </div>
+    <div class="form-group" style="margin-left: 50px">
+        <label for="paperTeacher">所属教师：</label>
+        <select class="form-control" id="paperTeacher"></select>
     </div>
 </form>
 
@@ -113,6 +114,43 @@
 <script src="/js/bootstrap-paginator.js"></script>
 <script type="text/javascript">
 
+    $(function (){
+        $.ajax({
+            type: "get",
+            url: "/v1/grade/getCourseList",
+            dataType: 'json',
+            success:function (map){
+                let result=map.result;
+                showCourseList(result);
+            }
+        });
+
+        $.ajax({
+            type: "get",
+            url: "/v1/grade/getTeacherList",
+            dataType: 'json',
+            success:function (map){
+                let result=map.result;
+                showTeacherList(result);
+            }
+        })
+    })
+
+    function showCourseList(result){
+        let str=''
+        $.each(result,function (index,value){
+            str+="<option value=\""+value.courseId+"\">"+value.courseName+"</option>"
+        })
+        $("#paperCourse").html(str);
+    }
+
+    function showTeacherList(result){
+        let str=''
+        $.each(result,function (index,value){
+            str+="<option value=\""+value.teacherId+"\">"+value.teacherName+"</option>"
+        })
+        $("#paperTeacher").html(str);
+    }
 
     $("#cancel").click(function (){
         window.location.href="/forWord/paper"
@@ -256,7 +294,7 @@
                 let paper={
                     info:$("#paperTitle").val(),
                     courseId:$("#paperCourse").val(),
-                    teacherId:'1001',
+                    teacherId:$("#paperTeacher").val(),
                     judgeList:judgeArr,
                     choiceList:choiceArr,
                     textList:textArr
@@ -271,6 +309,9 @@
                         Swal.fire("保存成功", "", "success").then((isConfirm)=>{
                             window.location.href="/forWord/paper"
                         });
+                    },
+                    error:function (err) {
+                        alert("系统错误")
                     }
                 })
             }

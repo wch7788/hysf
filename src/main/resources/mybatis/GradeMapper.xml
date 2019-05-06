@@ -24,4 +24,27 @@
         </if>
     </select>
 
+    <select id="getCourseList" resultType="map">
+        select DISTINCT number as courseId,name as courseName
+        from t_course
+    </select>
+
+    <select id="getTeacherList" resultType="map">
+        select DISTINCT  name as teacherName,number as teacherId
+        from  t_teacher
+    </select>
+
+    <select id="getGradeCourse" resultType="map">
+        select DISTINCT g.course_id as courseId,c.name as courseName
+        from t_grade g
+        left join t_course c
+                on g.course_id=c.number
+    </select>
+
+    <select id="getGradeDate" resultType="java.sql.Date">
+        select date
+        from t_grade
+        where course_id=#{courseId}
+    </select>
+
 </mapper>
